@@ -59,7 +59,7 @@ ROOT_URLCONF = 'jobportal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Add this line to include your project-level templates folder
+        'DIRS': [BASE_DIR / 'templates'],  # project-level templates folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
