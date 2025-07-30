@@ -7,7 +7,7 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')),  # Handles login, logout, register, dashboard
-    path('jobs/', include('jobs.urls')),  # Your job app
+    path('jobs/', include('jobs.urls')),  # job app
     path('', RedirectView.as_view(url='/login/', permanent=False)),  # Redirect root to login
     path('accounts/', include('django.contrib.auth.urls')),
 ]
