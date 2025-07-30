@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">My Posted Jobs</h2>
+
+  {% if jobs %}
+    <div class="list-group">
+      {% for job in jobs %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="mb-1">{{ job.title }}</h5>
+            <small class="text-muted">{{ job.location }}</small>
+          </div>
+          <div class="d-flex gap-2">
+            <a href="{% url 'applicants_list' job.id %}" class="btn btn-primary btn-sm">Applicants</a>
+            
+            <form method="post" action="{% url 'delete_job' job.id %}" onsubmit="return confirm('Are you sure you want to delete this job?');">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>You haven't posted any jobs yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

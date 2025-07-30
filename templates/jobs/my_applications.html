@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">My Applications</h2>
+
+  {% if applications %}
+    <div class="list-group">
+      {% for application in applications %}
+        <div class="list-group-item">
+          <h5 class="mb-1">{{ application.job.title }}</h5>
+          <p class="mb-1">{{ application.job.company_name }}</p>
+          <small>Applied on {{ application.applied_at|date:"F j, Y" }}</small>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>You haven't applied to any jobs yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

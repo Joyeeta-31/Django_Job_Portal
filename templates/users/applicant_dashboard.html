@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card mx-auto shadow" style="max-width: 600px;">
+  <div class="card-header bg-primary text-white">
+    <h2 class="mb-0">Applicant Dashboard</h2>
+  </div>
+  <div class="card-body">
+    <p class="lead">Welcome, <strong>{{ user.username }}</strong>!</p>
+    <a href="{% url 'job_list' %}" class="btn btn-success mb-3">Browse Jobs</a>
+    <div>
+      <a href="{% url 'my_applications' %}" class="btn btn-outline-primary">
+        📄 View My Applications
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

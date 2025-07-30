@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title">{{ job.title }}</h2>
+      <p><strong>Company:</strong> {{ job.company_name }}</p>
+      <p><strong>Location:</strong> {{ job.location }}</p>
+      <p><strong>Description:</strong></p>
+      <p>{{ job.description|linebreaks }}</p>
+    </div>
+  </div>
+
+  {% if user.is_authenticated and user.role == 'applicant' %}
+  <div class="card">
+    <div class="card-header">
+      <h3 class="mb-0">Apply to this Job</h3>
+    </div>
+    <div class="card-body">
+      <form method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Application</button>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
