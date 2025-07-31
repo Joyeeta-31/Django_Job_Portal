@@ -30,6 +30,16 @@ def my_jobs(request):
 def applicants_list(request, job_id):
     job = get_object_or_404(Job, id=job_id, posted_by=request.user)
     applications = Application.objects.filter(job=job)
+
+    if request.method == 'POST':
+        app_id = request.POST.get('application_id')
+        new_status = request.POST.get('status')
+        application = get_object_or_404(Application, id=app_id, job=job)
+        if new_status in ['approved', 'rejected']:
+            application.status = new_status
+            application.save()
+        return redirect('applicants_list', job_id=job_id)
+
     return render(request, 'jobs/applicants_list.html', {'job': job, 'applications': applications})
 
 
@@ -72,9 +82,17 @@ def job_detail(request, job_id):
 def my_applications(request):
     if request.user.role != 'applicant':
         return redirect('dashboard')
-    
+
+    status_filter = request.GET.get('status')
     applications = Application.objects.filter(applicant=request.user)
-    return render(request, 'jobs/my_applications.html', {'applications': applications})
+    if status_filter in ['pending', 'approved', 'rejected']:
+        applications = applications.filter(status=status_filter)
+
+    return render(request, 'jobs/my_applications.html', {
+        'applications': applications,
+        'status_filter': status_filter,
+    })
+
 
 @login_required
 def delete_job(request, job_id):
